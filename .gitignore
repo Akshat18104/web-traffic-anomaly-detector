@@ -1,0 +1,28 @@
+# Datasets (Keep raw and test logs local)
+data/
+*.csv
+*.log
+
+# Machine Learning Models (Too heavy for GitHub)
+ml/*.joblib
+ml/*.pkl
+*.joblib
+*.pkl
+
+# Database Files
+db/*.db
+*.sqlite3
+
+# Python Virtual Environments
+venv/
+env/
+.env
+
+# Python Cache (Auto-generated system files)
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
