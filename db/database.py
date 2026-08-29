@@ -2,11 +2,11 @@ import sqlite3 as sq
 import os
 
 DB_FILE = "web_traffic.db"
-SCHEMA_FILE = "schema.sql"
+SCHEMA_FILE = "db/schema.sql"
 
 def init_db():
-    if not os.path.exists(DB_FILE):
-        print(f"ERROR: Connot find '{SCHEMA_FILE}'. ensure you are running this from the root directory")
+    if not os.path.exists(SCHEMA_FILE):
+        print(f"ERROR: Cannot find '{SCHEMA_FILE}'. ensure you are running this from the root directory")
         return
     conn = sq.connect(DB_FILE)
     cousor = conn.cursor()
