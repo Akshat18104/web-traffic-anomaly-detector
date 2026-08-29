@@ -24,6 +24,19 @@ def parse_log_file(file_path):
     df =  df.dropna(subset=['ip'])
     return df
 
+def extract_ip_features(df):
+    if df.empty or 'ip' not in df.columns:
+        print("ERROR: DataFrame is empty or does not contain 'ip' column.")
+        return pd.DataFrame()
+    feature_df = df.groupby('ip').agg(
+        total_requests = ('ip', 'count'),
+        error_count = ('severity', lambda s: (s.str.lower() == 'error').sum())
+    ).reset_index()
+
+    feature_df['error_ratio'] = feature_df['error_count'] / feature_df['total_requests']
+    return feature_df
+
+
 if __name__ == "__main__":
     log_file_path = "data/Apache_2k.log"
     print(f"parsing {log_file_path}...")
@@ -32,4 +45,6 @@ if __name__ == "__main__":
     print("\nExtraction complete... here are 5 rows:")
     print(traffic_df.head())
     print(f"\nTotal extracted web requests: {len(traffic_df)}")
-    
+    features = extract_ip_features(traffic_df)
+    print("\nGenerated IP Feature Matrix (Ready for ML):")
+    print(features.head())
